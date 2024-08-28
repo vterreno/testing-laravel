@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Product;
+use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
@@ -42,17 +43,18 @@ class ProductDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
+            ->addAction(['width' => '120px', 'printable' => false, 'title'=>'Acciones'])
             ->parameters([
-                'dom'       => 'Bfrtip',
+                'dom'       => "<'row'<'col-sm-12 mb-4'B>> <'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>> <'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
-                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
+                    ['extend' => 'excel', 'className' => 'btn btn-default btn-sm no-corner',],
+                    ['extend' => 'pdf', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+                ],
+                'language' => [
+                    'url' => asset('assets/js/dataTables/language/es-ES.json')
                 ],
             ]);
     }
@@ -65,10 +67,10 @@ class ProductDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name',
-            'unit_price_sell',
-            'unit_price_buy',
-            'description'
+            Column::make('id')->title('ID'),
+            Column::make('name')->title('Nombre'),
+            Column::make('unit_price_sell')->title('Precio unitario venta'),
+            Column::make('unit_price_buy')->title('Precio unitario compra'),
         ];
     }
 
