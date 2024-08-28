@@ -29,7 +29,7 @@ Para crear el sistema nos basamos en la [siguiente plantilla de infyom.](https:/
 7. Correr `npm install`
 8. Correr `php artisan key:generate`
 9. Correr `php artisan migrate`
-10. Para iniciar la aplicación correr `php artisan serve`
+10. Para iniciar la aplicación correr `npm run hot`
 
 ### XAMPP
 <b>Pasos a seguir para xampp:</b>
@@ -41,5 +41,5 @@ Para crear el sistema nos basamos en la [siguiente plantilla de infyom.](https:/
 6. Correr `npm install`
 7. Correr `php artisan key:generate`
 8. Correr `php artisan migrate`
-9. Para iniciar la aplicación correr `php artisan serve`
+9. Para iniciar la aplicación correr `npm run hot`
 
