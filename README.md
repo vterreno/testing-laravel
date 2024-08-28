@@ -1,65 +1,45 @@
-<h1 align="center"><img src="https://assets.infyom.com/open-source/infyom-logo.png" alt="InfyOm"></h1>
+# Aplicación para la cátedra de "Testing"
 
-# Laravel Boilerplate for AdminLTE Theme
+Este trabajo comprende un desarrollo tecnólogico en el framework de Lavarel que utiliza el lenguaje de programación PHP. 
 
-Laravel Boilerplate with [AdminLTE](https://adminlte.io/) Theme with [InfyOm Laravel Generator](https://github.com/InfyOmLabs/laravel-generator).
-Following things are ready to be used directly with AdminLTE Theme.
-
-- Signup
+El sistema cuenta con las siguientes funcionalidades:
+- Registrar
 - Login
-- Forgot Password
-- Password Reset
-- Home Layout with Sidebar
+- Dashboard con menú lateral
+- ABMC de entidades relevantes del dominio
 
-## Documentation
+Para crear el sistema nos basamos en la [siguiente plantilla de infyom.](https://infyom.com/open-source/laravelgenerator/docs/8.0/boilerplates)
 
-Read [Documentation](https://infyom.com/open-source/laravelgenerator/docs/8.0/boilerplates) for detailed installation steps and usage.
+## Requisitos para realizar el deploy local
+- PHP ^8.1
+- Composer (gestor de paquetes de PHP)
+- Herramienta Laragon/XAMPP
 
-## Support Us
+**_Observación:_** Laragon solamente funciona en Windows. 
 
-We have created [14+ Laravel packages](https://github.com/InfyOmLabs) and invested a lot of resources into creating these all packages and maintaining them.
+## Guía para realizar el deploy local del proyecto
+### Laragon
+<b>Pasos a seguir para laragon:</b>
+1. Clonar el proyecto en la carpeta /laragon/www
+2. Abrir con un editor de texto el proyecto, quitarle el “.example” al archivo “env.example” y darle guardar. Se debe crear una **DB** y modificar el .env segun la configuración local
+3. Iniciar los servicios de Laragon
+4. Abrir la terminal de Laragon
+5. Hacer cd a la carpeta que contiene el proyecto y ejecutar los siguientes comandos
+6. Correr `composer install`
+7. Correr `npm install`
+8. Correr `php artisan key:generate`
+9. Correr `php artisan migrate`
+10. Para iniciar la aplicación correr `php artisan serve`
 
-You can support us by either sponsoring us or buying one of our paid products. Or help us by spreading the word about us on social platforms via tweets and posts.
+### XAMPP
+<b>Pasos a seguir para xampp:</b>
+1. Clonar el proyecto en la carpeta /laragon/www
+2. Abrir con un editor de texto el proyecto, quitarle el “.example” al archivo “env.example” y darle guardar. Se debe crear una **DB** y modificar el .env segun la configuración local
+3. Iniciar los servicios de Xampp
+4. Abrir una terminal en la carpeta del proyecto y ejecutar los siguientes comandos
+5. Correr `composer install`
+6. Correr `npm install`
+7. Correr `php artisan key:generate`
+8. Correr `php artisan migrate`
+9. Para iniciar la aplicación correr `php artisan serve`
 
-### Buy our Paid Products
-
-[![InfyGPT](https://assets.infyom.com/open-source/infygpt-inline.png)](https://bit.ly/infy-gpt)
-
-You can also check out our other paid products on [CodeCanyon](https://1.envato.market/BXAnR1).
-
-### Sponsors
-
-[Become a sponsor](https://opencollective.com/infyomlabs#sponsor) and get your logo on our README on Github with a link to your site.
-
-<a href="https://opencollective.com/infyomlabs#sponsor"><img src="https://opencollective.com/infyomlabs/sponsors.svg?width=890"></a>
-
-### Backers
-
-[Become a backer](https://opencollective.com/infyomlabs#backer) and get your image on our README on Github with a link to your site.
-
-<a href="https://opencollective.com/infyomlabs#backer"><img src="https://opencollective.com/infyomlabs/backers.svg?width=890"></a>
-
-### Follow Us
-
-- [Twitter](https://twitter.com/infyom)
-- [Facebook](https://www.facebook.com/infyom)
-- [LinkedIn](https://in.linkedin.com/company/infyom-technologies)
-- [Youtube](https://www.youtube.com/channel/UC8IvwfChD6i7Wp4yZp3tNsQ)
-- [Contact Us](https://infyom.com/contact-us)
-
-## Made with InfyOm Generator
-
-Also, Do not forget to add your website to [Made with InfyOm Generator List](https://github.com/InfyOmLabs/laravel-generator/blob/develop/made-with-generator.md) list.
-
-## Security
-
-If you discover any security-related issues, create an issue using the issue tracker.
-
-## Credits
-
-- [InfyOm Technologies](https://github.com/infyomlabs)
-- [All Contributors](../../contributors)
-
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
