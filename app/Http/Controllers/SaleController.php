@@ -6,7 +6,10 @@ use App\DataTables\SaleDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use App\Models\Product;
+use App\Models\SaleDetail;
 use App\Repositories\SaleRepository;
+use Arr;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -54,12 +57,52 @@ class SaleController extends AppBaseController
     {
         $input = $request->all();
 
-        $sale = $this->saleRepository->create($input);
+        // Crear la venta
+        $sales_fields = ['payment_method_id'];
 
-        Flash::success('Venta guardada exitosamente.');
+        // Obtener el valor del campo oculto
+        $detailsSalesJson = $request->input('details_sales_json');
+
+        // Convertir el JSON a un array de objetos
+        $detailsSalesArray = json_decode($detailsSalesJson);
+
+        // Verificar si el array de detalles está vacío
+        if (empty($detailsSalesArray)) {
+            Flash::error('Se debe agregar por lo menos un producto para guardar la venta');
+            return redirect()->back()->withInput();
+        }
+
+        $sale = $this->saleRepository->create(Arr::only($input, $sales_fields));
+
+        // Guardar los detalles de la venta
+        $this->saveSalesDetails($sale, $detailsSalesArray);
+
+        Flash::success('Venta registrada correctamente.');
 
         return redirect(route('sales.index'));
     }
+
+    public function saveSalesDetails($sales, $detailsSalesArray)
+    {
+        // Iterar sobre los detalles y crearlos uno por uno
+        foreach ($detailsSalesArray as $detailData) {
+            $product = null;
+            $product = Product::where('id', $detailData->product_id)->first();
+
+            // Crear el detalle del pedido
+            $salesDetail = new SaleDetail([
+                'product_id' => $product->id,
+                'product_name' => $product->name,
+                'sale_id' => $sales->id,
+                'detail_quantity' => $detailData->detail_quantity ? $detailData->detail_quantity : null,
+                'detail_unit_price_sell' => $detailData->detail_unit_price_sell ? $detailData->detail_unit_price_sell : null,
+                'detail_unit_price_buy' => $detailData->detail_unit_price_buy,
+            ]);
+            // Guardar el detalle del pedido
+            $salesDetail->save();
+        }
+    }
+
 
     /**
      * Display the specified Sale.
@@ -91,6 +134,26 @@ class SaleController extends AppBaseController
     public function edit($id)
     {
         $sale = $this->saleRepository->find($id);
+        $sales_details = SaleDetail::where('sale_id', $sale->id)->get();
+        $productos = [];
+        $count = 0;
+
+        foreach ($sales_details as $sale_detail) {
+            // Obtén los datos del producto según el product_id
+            $product = Product::where('id', $sale_detail->product_id)->first();
+
+            $producto = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'unit_price_buy' => $product->unit_price_buy,
+                'unit_price_sell' => $product->unit_price_sell,
+            ];
+
+            $productos[] = $producto;
+
+            $count++;
+        }
 
         if (empty($sale)) {
             Flash::error('Venta no encontrada');
@@ -98,7 +161,11 @@ class SaleController extends AppBaseController
             return redirect(route('sales.index'));
         }
 
-        return view('sales.edit')->with('sale', $sale);
+        return view('sales.edit')
+            ->with('sale', $sale)
+            ->with('sales_details', $sales_details)
+            ->with('productos', $productos)
+            ->with('sale_id', $sale->id);
     }
 
     /**
@@ -111,17 +178,17 @@ class SaleController extends AppBaseController
      */
     public function update($id, UpdateSaleRequest $request)
     {
-        $sale = $this->saleRepository->find($id);
+        $sales = $this->saleRepository->find($id);
 
-        if (empty($sale)) {
+        if (empty($sales)) {
             Flash::error('Venta no encontrada');
 
             return redirect(route('sales.index'));
         }
 
-        $sale = $this->saleRepository->update($request->all(), $id);
+        $sales = $this->saleRepository->update($request->all(), $id);
 
-        Flash::success('Venta actualizada exitosamente.');
+        Flash::success('Venta editada correctamente.');
 
         return redirect(route('sales.index'));
     }

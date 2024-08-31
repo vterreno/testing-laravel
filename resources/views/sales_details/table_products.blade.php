@@ -4,7 +4,7 @@
 
     var ventaCreada = true
 
-    var sales_id_global = @json($sales_id)
+    var sales_id_global = @json($sale_id)
 
     console.log(sales_details)
 </script>
@@ -225,7 +225,8 @@
                 productos[indexObjeto] = product_global
                 sales_details[indexObjeto].product_id = productos[indexObjeto].id
                 sales_details[indexObjeto].product_name = productos[indexObjeto].name
-                sales_details[indexObjeto].unit_price_buy = productos[indexObjeto].unit_price_buy
+                sales_details[indexObjeto].detail_unit_price_buy = productos[indexObjeto].detail_unit_price_buy
+                sales_details[indexObjeto].detail_unit_price_sell = productos[indexObjeto].detail_unit_price_sell
             }
 
             console.log('Productos editado: ', productos)
@@ -234,8 +235,9 @@
             // console.log(productos[indexObjeto])
 
             sales_details[indexObjeto].detail_quantity = document.getElementById('detail_quantity').value;
-            sales_details[indexObjeto].detail_unit_price_sell = document.getElementById('detail_unit_price_sell').value;
-            sales_details[indexObjeto].unit_price_buy = productos[indexObjeto].unit_price_buy
+            sales_details[indexObjeto].detail_unit_price_sell = productos[indexObjeto].unit_price_sell;
+            sales_details[indexObjeto].detail_unit_price_buy = productos[indexObjeto].unit_price_buy
+            sales_details[indexObjeto].detail_unit_price_sell = productos[indexObjeto].unit_price_sell
             // console.log("PRODUCTO ID: " + sales_details[indexObjeto].product_id)
             // console.log("productos ID: " + productos[indexObjeto].id)
 
@@ -304,29 +306,22 @@
                     currency: 'ARS'
                 });
 
-                var formattedCost = (detail.unit_price_buy).toLocaleString('es-ES', {
+                var unit_price_buy = parseFloat(detail.detail_unit_price_buy ? detail.detail_unit_price_buy : 0);
+
+                var formattedCost = (unit_price_buy).toLocaleString('es-ES', {
                     style: 'currency',
                     currency: 'ARS'
                 });
 
                 console.log(detail.product_name)
-                if (checkbox_mostrar_todo.checked) {
-                    var properties = [
-                        detail.product_name,
-                        detail.detail_quantity ? detail.detail_quantity : '-',
-                        formattedCost,
-                        formattedUnitPriceSell,
-                        buttonsHtml,
-                    ];
-                } else {
-                    var properties = [
-                        detail.product_name,
-                        detail.detail_quantity ? detail.detail_quantity : '-',
-                        formattedUnitPriceSell,
-                        buttonsHtml,
-                    ];
-                }
-                
+               
+                var properties = [
+                    detail.product_name,
+                    detail.detail_quantity ? detail.detail_quantity : '-',
+                    formattedCost,
+                    formattedUnitPriceSell,
+                    buttonsHtml,
+                ];
 
                 properties.forEach(function(property) {
                     var cell = document.createElement('td');
@@ -444,7 +439,7 @@
         var spanTotalVenta = document.getElementById('totalVenta')
 
         sales_details.forEach(element => {
-            totalCostProd += parseInt(element.unit_price_buy) * parseInt(element.detail_quantity)
+            totalCostProd += parseInt(element.detail_unit_price_buy) * parseInt(element.detail_quantity)
             totalVenta += parseInt(element.detail_unit_price_sell) * parseInt(element.detail_quantity)
         });
 

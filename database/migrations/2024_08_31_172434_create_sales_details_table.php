@@ -19,10 +19,12 @@ class CreateSalesDetailsTable extends Migration
             $table->id();
             $table->foreignIdFor(Sale::class);
             $table->foreignIdFor(Product::class);
-            $table->integer('quantity');
-            $table->float('unit_price_sell', 8, 2);
-            $table->float('unit_price_buy', 8, 2);
+            $table->string('product_name');
+            $table->integer('detail_quantity');
+            $table->float('detail_unit_price_sell', 8, 2);
+            $table->float('detail_unit_price_buy', 8, 2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

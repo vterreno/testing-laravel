@@ -1,3 +1,13 @@
+<style>
+ .select2-container .select2-selection--single {
+    height: calc(2.25rem + 2px) !important;
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+    right: 10px !important;
+  }
+</style>
+
 <div class="form-group col-sm-12 modal-header">
     <h3 id="modalTitle">Agregar producto</h3>
 </div>
@@ -13,3 +23,4 @@
     {!! Form::label('quantity', 'Cantidad: ') !!}
     {!! Form::number('quantity', null, ['class' => 'form-control', 'id' => 'detail_quantity']) !!}
 </div>
+

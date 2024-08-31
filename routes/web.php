@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SaleDetailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,3 +48,8 @@ Route::resource('paymentMethods', App\Http\Controllers\PaymentMethodController::
 
 
 Route::resource('sales', App\Http\Controllers\SaleController::class);
+
+// GUARDAR Y BORRAR SALES_DETAILS CREADOS
+Route::get('/obtener-producto/{id}', [SaleDetailController::class, 'obtenerProducto']);
+Route::post('/actualizar-sales-detail', [SaleDetailController::class, 'actualizarSaleDetail']);
+Route::post('/borrar-sales-detail', [SaleDetailController::class, 'borrarSaleDetail']);
