@@ -3,6 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\Sale;
+use App\Models\SaleDetail;
+use DB;
+use NumberFormatter;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
@@ -22,6 +25,14 @@ class SaleDataTable extends DataTable
         return $dataTable->addColumn('action', 'sales.datatables_actions')
             ->editColumn('created_at', function ($sale) {
                 return $sale->created_at->format('d/m/Y H:i:s');
+            })
+            ->editColumn('total_sales', function ($sales) {
+                $formatter = new NumberFormatter('es_AR', NumberFormatter::CURRENCY);
+                return $formatter->formatCurrency($sales->total_sales, 'ARS');
+            })
+            ->editColumn('earnings', function ($sales) {
+                $formatter = new NumberFormatter('es_AR', NumberFormatter::CURRENCY);
+                return $formatter->formatCurrency($sales->total_sales - $sales->total_cost, 'ARS');
             });
     }
 
@@ -34,7 +45,15 @@ class SaleDataTable extends DataTable
     public function query(Sale $model)
     {
         return $model->newQuery()
-            ->with('payment_method');
+            ->with('payment_method')
+            ->addSelect([
+                'total_sales' => SaleDetail::select(DB::raw('SUM(detail_unit_price_sell * detail_quantity)'))
+                    ->whereColumn('sale_id', 'sales.id')
+            ])
+            ->addSelect([
+                'total_cost' => SaleDetail::select(DB::raw('SUM(detail_unit_price_buy * detail_quantity)'))
+                    ->whereColumn('sale_id', 'sales.id')
+            ]);
     }
 
     /**
@@ -73,6 +92,8 @@ class SaleDataTable extends DataTable
         return [
             Column::make('id')->title('ID'),
             Column::make('created_at')->title('Fecha'),
+            Column::computed('total_sales')->title('Total venta')->defaultContent('-'),
+            Column::computed('earnings')->title('Ganancia')->defaultContent('-'),
             Column::make('payment_method.name')->title('Método de pago')->defaultContent('-'),
         ];
     }

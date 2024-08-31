@@ -439,8 +439,8 @@
         var spanTotalVenta = document.getElementById('totalVenta')
 
         sales_details.forEach(element => {
-            totalCostProd += parseInt(element.detail_unit_price_buy) * parseInt(element.detail_quantity)
-            totalVenta += parseInt(element.detail_unit_price_sell) * parseInt(element.detail_quantity)
+            totalCostProd += parseFloat(element.detail_unit_price_buy) * parseFloat(element.detail_quantity)
+            totalVenta += parseFloat(element.detail_unit_price_sell) * parseFloat(element.detail_quantity)
         });
 
         ganancia = totalVenta - totalCostProd
