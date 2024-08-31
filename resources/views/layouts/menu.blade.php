@@ -14,3 +14,12 @@
 </li>
 
 
+<li class="nav-item">
+    <a href="{{ route('product-categories.index') }}"
+       class="nav-link {{ Request::is('product-categories*') ? 'active' : '' }}">
+       <i class="nav-icon fa fa-clipboard" aria-hidden="true"></i>
+        <p>Categorías productos</p>
+    </a>
+</li>
+
+

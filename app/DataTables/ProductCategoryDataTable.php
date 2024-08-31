@@ -2,12 +2,12 @@
 
 namespace App\DataTables;
 
-use App\Models\Product;
+use App\Models\ProductCategory;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class ProductDataTable extends DataTable
+class ProductCategoryDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -19,25 +19,18 @@ class ProductDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'products.datatables_actions')
-        ->editColumn('unit_price_sell', function ($product) {
-            return '$ ' . number_format($product->unit_price_sell, 2, ',');
-        })
-        ->editColumn('unit_price_buy', function ($product) {
-            return '$ ' . number_format($product->unit_price_sell, 2, ',');
-        });
+        return $dataTable->addColumn('action', 'product_categories.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Product $model
+     * @param \App\Models\ProductCategory $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Product $model)
+    public function query(ProductCategory $model)
     {
-        return $model->newQuery()
-            ->with('product_category');
+        return $model->newQuery();
     }
 
     /**
@@ -76,9 +69,7 @@ class ProductDataTable extends DataTable
         return [
             Column::make('id')->title('ID'),
             Column::make('name')->title('Nombre')->defaultContent('-'),
-            Column::computed('product_category.name')->title('Categoría')->defaultContent('-'),
-            Column::make('unit_price_sell')->title('Precio unitario venta')->defaultContent('-'),
-            Column::make('unit_price_buy')->title('Precio unitario compra')->defaultContent('-'),
+            Column::make('description')->title('Descripción')->defaultContent('-'),  
         ];
     }
 
@@ -89,6 +80,6 @@ class ProductDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'products_datatable_' . time();
+        return 'product_categories_datatable_' . time();
     }
 }

@@ -2,26 +2,23 @@
 
 namespace App\Repositories;
 
-use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Repositories\BaseRepository;
 
 /**
- * Class ProductRepository
+ * Class ProductCategoryRepository
  * @package App\Repositories
- * @version August 28, 2024, 5:59 pm UTC
+ * @version August 30, 2024, 10:16 pm UTC
 */
 
-class ProductRepository extends BaseRepository
+class ProductCategoryRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
         'name',
-        'unit_price_sell',
-        'unit_price_buy',
-        'description',
-        'product_category_id'
+        'description'
     ];
 
     /**
@@ -39,6 +36,6 @@ class ProductRepository extends BaseRepository
      **/
     public function model()
     {
-        return Product::class;
+        return ProductCategory::class;
     }
 }
