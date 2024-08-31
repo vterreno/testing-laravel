@@ -23,3 +23,21 @@
 </li>
 
 
+<li class="nav-item">
+    <a href="{{ route('paymentMethods.index') }}"
+       class="nav-link {{ Request::is('paymentMethods*') ? 'active' : '' }}">
+       <i class="nav-icon fa fa-clipboard" aria-hidden="true"></i>
+        <p>Métodos de pago</p>
+    </a>
+</li>
+
+
+<li class="nav-item">
+    <a href="{{ route('sales.index') }}"
+       class="nav-link {{ Request::is('sales*') ? 'active' : '' }}">
+       <i class="nav-icon fa fa-clipboard" aria-hidden="true"></i>
+        <p>Ventas</p>
+    </a>
+</li>
+
+
