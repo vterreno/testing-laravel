@@ -29,7 +29,7 @@ class JavaAuthService
         }
     }
 
-    public function authenticate($credentials)
+    public function login($credentials)
     {
         try {
             $response = $this->client->post('/auth/login', [
