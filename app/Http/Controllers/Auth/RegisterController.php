@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
+use Flash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -51,7 +52,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'regex:/^[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/i'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,10 +65,42 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $service = app('JavaAuthService');
+        $full_name = $data['name'];
+        $name_parts = explode(' ', $full_name);
+        $name = isset($name_parts[0]) ? $name_parts[0] : '';
+        $lastname = isset($name_parts[1]) ? $name_parts[1] : '';
+
+        $register_data = [
+            'name' => $name,
+            'lastname' => $lastname,
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+            'username' => $data['email'],
+            'password' => $data['password'],
+            'role' => 'user'
+        ];
+        
+        $response = $service->register($register_data);
+        Log::info($response);
+
+        if ($response == 200) {
+            return 200;
+        } else {
+            return 400;
+        }
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $response = $this->create($request->all());
+        if ($response == 200) {
+            Flash::success('Usuario registrado correctamente');
+            return redirect()->route('login');
+        } else {
+            Flash::error('Error al registrar el usuario');
+            return redirect()->route('register');
+        }
     }
 }

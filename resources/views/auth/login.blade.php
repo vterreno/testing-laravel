@@ -38,7 +38,10 @@
     </div>
 
     <!-- /.login-logo -->
-
+    <div>
+        @include('flash::message')
+    </div>
+    
     <!-- /.login-box-body -->
     <div class="card">
         <div class="card-body login-card-body">

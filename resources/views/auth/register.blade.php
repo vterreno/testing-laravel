@@ -36,6 +36,10 @@
         <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
     </div>
 
+    <div>
+    @include('flash::message')
+    </div>
+    
     <div class="card">
         <div class="card-body register-card-body">
             <p class="login-box-msg">Registrar nuevo usuario</p>
