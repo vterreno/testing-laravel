@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Log;
 
 class LoginController extends Controller
 {
@@ -54,12 +55,10 @@ class LoginController extends Controller
         }
 
         $response_attempt = $this->attemptLogin($request);
-        if ($response_attempt[1] == 200) {
-            if ($request->hasSession()) {
-                $request->session()->put('auth.password_confirmed_at', time());
-            }
-
-            return $this->sendLoginResponse($request);
+        Log::info('reponse_attempt: ' . $response_attempt);
+        if ($response_attempt !== null && $response_attempt['code'] === 200) {
+            $response_attempt_data = $response_attempt['response'];
+            return $this->sendLoginResponse($response_attempt_data);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -74,9 +73,9 @@ class LoginController extends Controller
      * Attempt to log the user into the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return bool
+     * @return array
      */
-    protected function attemptLogin(Request $request)
+    public function attemptLogin(Request $request)
     {
         $service = app('JavaAuthService');
         $credentials = $request->only('email', 'password');
@@ -87,21 +86,17 @@ class LoginController extends Controller
     /**
      * Send the response after the user was authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  array $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    protected function sendLoginResponse(Request $request)
+    public function sendLoginResponse($request)
     {
-        $request->session()->regenerate();
-
-        $this->clearLoginAttempts($request);
-
-        if ($response = $this->authenticated($request, $this->guard()->user())) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-                    ? new JsonResponse([], 204)
-                    : redirect()->intended($this->redirectPath());
+        session([
+            'token' => $request['token'],
+            'user_name' => $request['name'],
+            'user_role' => $request['role'],
+        ]);
+        
+        return redirect()->intended($this->redirectPath());
     }
 }

@@ -4,7 +4,6 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use Flash;
 use Illuminate\Support\Facades\Log;
 
 class JavaAuthService
@@ -36,10 +35,11 @@ class JavaAuthService
                 'json' => $credentials,
             ]);
 
-            $data = json_decode($response->getBody()->getContents(), true);
-            return [$data, $response->getStatusCode()];
+            $data['response'] = json_decode($response->getBody()->getContents(), true);
+            $data['code'] = $response->getStatusCode();
+            return $data;
         } catch (RequestException $e) {
-            return [null, 400];
+            return null;
         }
     }
 }
