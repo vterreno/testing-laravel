@@ -38,7 +38,7 @@
 
     <div class="card">
         <div class="card-body register-card-body">
-            <p class="login-box-msg">Register a new membership</p>
+            <p class="login-box-msg">Registrar nuevo usuario</p>
 
             <form method="post" action="{{ route('register') }}">
                 @csrf
@@ -48,7 +48,7 @@
                            name="name"
                            class="form-control @error('name') is-invalid @enderror"
                            value="{{ old('name') }}"
-                           placeholder="Full name">
+                           placeholder="Nombre completo">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -79,7 +79,7 @@
                     <input type="password"
                            name="password"
                            class="form-control @error('password') is-invalid @enderror"
-                           placeholder="Password">
+                           placeholder="Contraseña">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -94,30 +94,22 @@
                     <input type="password"
                            name="password_confirmation"
                            class="form-control"
-                           placeholder="Retype password">
+                           placeholder="Repetir contraseña">
                     <div class="input-group-append">
                         <div class="input-group-text"><span class="fas fa-lock"></span></div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                            <label for="agreeTerms">
-                                I agree to the <a href="#">terms</a>
-                            </label>
-                        </div>
-                    </div>
                     <!-- /.col -->
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
                     </div>
                     <!-- /.col -->
                 </div>
             </form>
 
-            <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
+            <a href="{{ route('login') }}" class="text-center">Iniciar sesión</a>
         </div>
         <!-- /.form-box -->
     </div><!-- /.card -->
