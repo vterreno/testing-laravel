@@ -18,7 +18,7 @@ class CustomAuth
     public function handle(Request $request, Closure $next)
     {
         $token = session('token');
-        Log::info('token: ' . $token);
+        // Log::info('token: ' . $token);
         if (!$token) {
             return redirect()->route('login');
         }
