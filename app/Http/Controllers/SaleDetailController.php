@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class SaleDetailController extends AppBaseController
 {
+    public function __construct()
+    {
+        $this->middleware('custom.auth');
+    }
     
     public function obtenerProducto($id)
     {

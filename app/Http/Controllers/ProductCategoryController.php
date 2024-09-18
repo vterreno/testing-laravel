@@ -19,6 +19,7 @@ class ProductCategoryController extends AppBaseController
     public function __construct(ProductCategoryRepository $productCategoryRepo)
     {
         $this->productCategoryRepository = $productCategoryRepo;
+        $this->middleware('custom.auth');
     }
 
     /**

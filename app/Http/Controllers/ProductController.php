@@ -19,6 +19,7 @@ class ProductController extends AppBaseController
     public function __construct(ProductRepository $productRepo)
     {
         $this->productRepository = $productRepo;
+        $this->middleware('custom.auth');
     }
 
     /**

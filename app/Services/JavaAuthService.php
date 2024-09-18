@@ -37,6 +37,7 @@ class JavaAuthService
 
             $data['response'] = json_decode($response->getBody()->getContents(), true);
             $data['code'] = $response->getStatusCode();
+            Log::info($data);
             return $data;
         } catch (RequestException $e) {
             return null;
