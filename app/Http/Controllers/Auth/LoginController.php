@@ -55,7 +55,7 @@ class LoginController extends Controller
         }
 
         $response_attempt = $this->attemptLogin($request);
-        Log::info('reponse_attempt: ' . $response_attempt);
+        Log::info('reponse_attempt: ' . json_encode($response_attempt));
         if ($response_attempt !== null && $response_attempt['code'] === 200) {
             $response_attempt_data = $response_attempt['response'];
             return $this->sendLoginResponse($response_attempt_data);
@@ -79,6 +79,7 @@ class LoginController extends Controller
     {
         $service = app('JavaAuthService');
         $credentials = $request->only('email', 'password');
+        Log::info('credentials: ' . json_encode($credentials));
 
         return $service->login($credentials);
     }
@@ -98,5 +99,28 @@ class LoginController extends Controller
         ]);
         
         return redirect()->intended($this->redirectPath());
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/');
     }
 }

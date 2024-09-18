@@ -22,6 +22,7 @@ class SaleController extends AppBaseController
     public function __construct(SaleRepository $saleRepo)
     {
         $this->saleRepository = $saleRepo;
+        $this->middleware('custom.auth');
     }
 
     /**

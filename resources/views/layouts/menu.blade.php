@@ -6,12 +6,12 @@
     </a>
 </li>
 
-<li class="nav-item">
+<!-- <li class="nav-item">
     <a href="{{ route('io_generator_builder') }}"
        class="nav-link {{ Request::is('scaffold*') ? 'active' : '' }}">
         <p>Scaffold builder</p>
     </a>
-</li>
+</li> -->
 
 
 <li class="nav-item">
