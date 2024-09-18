@@ -30,7 +30,8 @@ class ProductController extends AppBaseController
      */
     public function index(ProductDataTable $productDataTable)
     {
-        return $productDataTable->render('products.index');
+        $products = $this->productRepository->all(); // Trae todos los productos
+        return $productDataTable->render('products.index', compact('products')); // Pasa 'products' a la vista
     }
 
     /**
@@ -148,5 +149,11 @@ class ProductController extends AppBaseController
         Flash::success('Producto eliminado exitosamente.');
 
         return redirect(route('products.index'));
+    }
+
+    public function delete($id)
+    {
+        $product = $this->find($id);
+        $product->forceDelete(); // Elimina permanentemente
     }
 }
