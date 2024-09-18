@@ -44,7 +44,7 @@ Route::resource('products', App\Http\Controllers\ProductController::class);
 Route::resource('product-categories', App\Http\Controllers\ProductCategoryController::class);
 
 
-Route::resource('paymentMethods', App\Http\Controllers\PaymentMethodController::class);
+Route::resource('payment_methods', App\Http\Controllers\PaymentMethodController::class);
 
 
 Route::resource('sales', App\Http\Controllers\SaleController::class);

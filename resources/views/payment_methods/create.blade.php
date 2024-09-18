@@ -17,7 +17,7 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'paymentMethods.store']) !!}
+            {!! Form::open(['route' => 'payment_methods.store']) !!}
 
             <div class="card-body">
 
@@ -29,7 +29,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('paymentMethods.index') }}" class="btn btn-default">Cancelar</a>
+                <a href="{{ route('payment_methods.index') }}" class="btn btn-default">Cancelar</a>
             </div>
 
             {!! Form::close() !!}
