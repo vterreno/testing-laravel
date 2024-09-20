@@ -37,4 +37,31 @@ class PaymentMethodControllerTest extends TestCase
         ]);
     }
 
+    public function test_it_can_modify_a_payment_method() {
+        $this->withoutMiddleware();
+        $paymentMethod = PaymentMethod::factory()->create();
+        $data = [
+            'name' => 'Tarjeta de Crédito',
+            'observation' => 'anulada'
+        ];
+
+        $response = $this->put(route('payment_methods.update', $paymentMethod->id), $data);
+
+        $response->assertRedirect('payment_methods');
+        $this->assertDatabaseHas('payment_methods', [
+            'name' => 'Tarjeta de Crédito',
+            'observation' => 'anulada'
+        ]);
+    }
+
+    public function test_it_can_delete_a_payment_method() {
+        $this->withoutMiddleware();
+        $paymentMethod = PaymentMethod::factory()->create();
+        $response = $this->delete(route('payment_methods.destroy', $paymentMethod->id));
+        $response->assertRedirect('payment_methods');
+        $this->assertDatabaseMissing('payment_methods', [
+            'deleted_at' => !null
+        ]);
+    }
+
 }
