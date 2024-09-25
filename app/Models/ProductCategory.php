@@ -17,8 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class ProductCategory extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
 
     public $table = 'product_categories';
