@@ -59,7 +59,7 @@ class PaymentMethodController extends AppBaseController
 
         Flash::success('Método de pago guardado exitosamente.');
 
-        return redirect(route('paymentMethods.index'));
+        return redirect(route('payment_methods.index'));
     }
 
     /**
@@ -76,7 +76,7 @@ class PaymentMethodController extends AppBaseController
         if (empty($paymentMethod)) {
             Flash::error('Método de pago no encontrado');
 
-            return redirect(route('paymentMethods.index'));
+            return redirect(route('payment_methods.index'));
         }
 
         return view('payment_methods.show')->with('paymentMethod', $paymentMethod);
@@ -96,7 +96,7 @@ class PaymentMethodController extends AppBaseController
         if (empty($paymentMethod)) {
             Flash::error('Método de pago no encontrado');
 
-            return redirect(route('paymentMethods.index'));
+            return redirect(route('payment_methods.index'));
         }
 
         return view('payment_methods.edit')->with('paymentMethod', $paymentMethod);
@@ -117,14 +117,14 @@ class PaymentMethodController extends AppBaseController
         if (empty($paymentMethod)) {
             Flash::error('Método de pago no encontrado');
 
-            return redirect(route('paymentMethods.index'));
+            return redirect(route('payment_methods.index'));
         }
 
         $paymentMethod = $this->paymentMethodRepository->update($request->all(), $id);
 
         Flash::success('Método de pago actualizado exitosamente.');
 
-        return redirect(route('paymentMethods.index'));
+        return redirect(route('payment_methods.index'));
     }
 
     /**
@@ -141,13 +141,13 @@ class PaymentMethodController extends AppBaseController
         if (empty($paymentMethod)) {
             Flash::error('Método de pago no encontrado');
 
-            return redirect(route('paymentMethods.index'));
+            return redirect(route('payment_methods.index'));
         }
 
         $this->paymentMethodRepository->delete($id);
 
         Flash::success('Método de pago eliminado exitosamente.');
 
-        return redirect(route('paymentMethods.index'));
+        return redirect(route('payment_methods.index'));
     }
 }

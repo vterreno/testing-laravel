@@ -1,9 +1,9 @@
-{!! Form::open(['route' => ['paymentMethods.destroy', $id], 'method' => 'delete']) !!}
+{!! Form::open(['route' => ['payment_methods.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    <a href="{{ route('paymentMethods.show', $id) }}" class='btn btn-default btn-xs'>
+    <a href="{{ route('payment_methods.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-eye"></i>
     </a>
-    <a href="{{ route('paymentMethods.edit', $id) }}" class='btn btn-default btn-xs'>
+    <a href="{{ route('payment_methods.edit', $id) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-edit"></i>
     </a>
     {!! Form::button('<i class="fa fa-trash"></i>', [

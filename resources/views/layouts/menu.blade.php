@@ -24,8 +24,8 @@
 
 
 <li class="nav-item">
-    <a href="{{ route('paymentMethods.index') }}"
-       class="nav-link {{ Request::is('paymentMethods*') ? 'active' : '' }}">
+    <a href="{{ route('payment_methods.index') }}"
+       class="nav-link {{ Request::is('payment_methods*') ? 'active' : '' }}">
        <i class="nav-icon fa fa-clipboard" aria-hidden="true"></i>
         <p>Métodos de pago</p>
     </a>

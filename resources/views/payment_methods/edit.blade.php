@@ -17,7 +17,7 @@
 
         <div class="card">
 
-            {!! Form::model($paymentMethod, ['route' => ['paymentMethods.update', $paymentMethod->id], 'method' => 'patch']) !!}
+            {!! Form::model($paymentMethod, ['route' => ['payment_methods.update', $paymentMethod->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">
@@ -27,7 +27,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('paymentMethods.index') }}" class="btn btn-default">Cancelar</a>
+                <a href="{{ route('payment_methods.index') }}" class="btn btn-default">Cancelar</a>
             </div>
 
             {!! Form::close() !!}
