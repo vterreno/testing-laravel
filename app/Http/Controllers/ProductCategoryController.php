@@ -59,7 +59,7 @@ class ProductCategoryController extends AppBaseController
 
         Flash::success('Categoría de producto guardada exitosamente.');
 
-        return redirect(route('productCategories.index'));
+        return redirect(route('product-categories.index'));
     }
 
     /**
@@ -76,7 +76,7 @@ class ProductCategoryController extends AppBaseController
         if (empty($productCategory)) {
             Flash::error('Categoria de producto no encontrada');
 
-            return redirect(route('productCategories.index'));
+            return redirect(route('product-categories.index'));
         }
 
         return view('product_categories.show')->with('productCategory', $productCategory);
@@ -96,7 +96,7 @@ class ProductCategoryController extends AppBaseController
         if (empty($productCategory)) {
             Flash::error('Categoria de producto no encontrada');
 
-            return redirect(route('productCategories.index'));
+            return redirect(route('product-categories.index'));
         }
 
         return view('product_categories.edit')->with('productCategory', $productCategory);
@@ -117,14 +117,14 @@ class ProductCategoryController extends AppBaseController
         if (empty($productCategory)) {
             Flash::error('Categoria de producto no encontrada');
 
-            return redirect(route('productCategories.index'));
+            return redirect(route('product-categories.index'));
         }
 
         $productCategory = $this->productCategoryRepository->update($request->all(), $id);
 
         Flash::success('Categoria de producto actualizada exitosamente.');
 
-        return redirect(route('productCategories.index'));
+        return redirect(route('product-categories.index'));
     }
 
     /**
@@ -141,13 +141,13 @@ class ProductCategoryController extends AppBaseController
         if (empty($productCategory)) {
             Flash::error('Categoria de producto no encontrada');
 
-            return redirect(route('productCategories.index'));
+            return redirect(route('product-categories.index'));
         }
 
         $this->productCategoryRepository->delete($id);
 
         Flash::success('Categoria de producto eliminada exitosamente.');
 
-        return redirect(route('productCategories.index'));
+        return redirect(route('product-categories.index'));
     }
 }
