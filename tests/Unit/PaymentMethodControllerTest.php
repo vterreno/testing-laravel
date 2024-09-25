@@ -1,10 +1,9 @@
 <?php
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\PaymentMethod;
-use Illuminate\Support\Facades\Log;
 
 class PaymentMethodControllerTest extends TestCase
 {
