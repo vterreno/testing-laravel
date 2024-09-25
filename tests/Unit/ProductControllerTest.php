@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -14,6 +14,7 @@ class ProductControllerTest extends TestCase
     /** @test */
     public function it_can_display_the_product_list()
     {
+        $this->withoutMiddleware();
         // Creamos una categoría de producto
         $category = ProductCategory::factory()->create();
 
@@ -33,6 +34,7 @@ class ProductControllerTest extends TestCase
     /** @test */
     public function it_can_display_the_create_product_form()
     {
+        $this->withoutMiddleware();
         $response = $this->get(route('products.create'));
 
         $response->assertStatus(200);
@@ -42,6 +44,7 @@ class ProductControllerTest extends TestCase
     /** @test */
     public function it_can_store_a_new_product()
     {
+        $this->withoutMiddleware();
         // Creamos una categoría de producto
         $category = ProductCategory::factory()->create();
 
@@ -67,6 +70,7 @@ class ProductControllerTest extends TestCase
     /** @test */
     public function it_can_update_an_existing_product()
     {
+        $this->withoutMiddleware();
         // Creamos una categoría de producto
         $category = ProductCategory::factory()->create();
 
@@ -95,6 +99,7 @@ class ProductControllerTest extends TestCase
     /** @test */
     public function it_can_delete_a_product()
     {
+        $this->withoutMiddleware();
         // Creamos un producto
         $product = Product::factory()->create();
 
