@@ -53,3 +53,5 @@ Route::resource('sales', App\Http\Controllers\SaleController::class);
 Route::get('/obtener-producto/{id}', [SaleDetailController::class, 'obtenerProducto']);
 Route::post('/actualizar-sales-detail', [SaleDetailController::class, 'actualizarSaleDetail']);
 Route::post('/borrar-sales-detail', [SaleDetailController::class, 'borrarSaleDetail']);
+// RUTA PARA OPERACIONES BÁSICAS DE DETALLES DE VENTA
+Route::resource('sale_details', SaleDetailController::class);

@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class SaleDetail extends Model
 {
-     use SoftDeletes;    public $table = 'sales_details';
+    use HasFactory, SoftDeletes;
+
+    public $table = 'sales_details';
 
     public $fillable = [
         'product_id',
@@ -29,8 +33,4 @@ class SaleDetail extends Model
         'product_name' => 'string',
     ];
 
-    public static array $rules = [
-        
-    ];
-    
 }
