@@ -6,12 +6,13 @@ use App\DataTables\SaleDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
-use App\Models\Product;
 use App\Models\SaleDetail;
 use App\Repositories\SaleRepository;
 use Arr;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 use Response;
 
 class SaleController extends AppBaseController
@@ -74,7 +75,7 @@ class SaleController extends AppBaseController
         }
 
         $sale = $this->saleRepository->create(Arr::only($input, $sales_fields));
-
+        // Log::info('Detalles de la venta: ' . json_encode($detailsSalesArray));
         // Guardar los detalles de la venta
         $this->saveSalesDetails($sale, $detailsSalesArray);
 
@@ -85,10 +86,14 @@ class SaleController extends AppBaseController
 
     public function saveSalesDetails($sales, $detailsSalesArray)
     {
+        // Log::info('Detalles de la venta: ' . json_encode($detailsSalesArray));
         // Iterar sobre los detalles y crearlos uno por uno
         foreach ($detailsSalesArray as $detailData) {
+            // Log::info('Detalle data: ' . json_encode($detailData));
+            // Log::info('Producto ID: ' . $detailData->product_id);
             $product = null;
             $product = Product::where('id', $detailData->product_id)->first();
+            // Log::info('Producto: ' . json_encode($product));
 
             // Crear el detalle del pedido
             $salesDetail = new SaleDetail([
