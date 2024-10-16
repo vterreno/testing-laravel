@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\SaleDetailController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,8 +49,7 @@ Route::resource('payment_methods', App\Http\Controllers\PaymentMethodController:
 Route::resource('sales', App\Http\Controllers\SaleController::class);
 
 // GUARDAR Y BORRAR SALES_DETAILS CREADOS
-Route::get('/obtener-producto/{id}', [SaleDetailController::class, 'obtenerProducto']);
-Route::post('/actualizar-sales-detail', [SaleDetailController::class, 'actualizarSaleDetail']);
-Route::post('/borrar-sales-detail', [SaleDetailController::class, 'borrarSaleDetail']);
-// RUTA PARA OPERACIONES BÁSICAS DE DETALLES DE VENTA
-Route::resource('sale_details', SaleDetailController::class);
+Route::get('/obtener-producto/{id}', [SaleDetailController::class, 'obtenerProducto'])->name('obtener-producto');
+Route::put('/actualizar-sales-detail', [SaleDetailController::class, 'actualizarSaleDetail'])->name('actualizar-sale-detail');
+Route::delete('/borrar-sales-detail', [SaleDetailController::class, 'borrarSaleDetail'])->name('borrar-sales-detail');
+Route::get('/listar-sales-detail', [SaleDetailController::class, 'listarSaleDetail']);

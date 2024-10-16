@@ -6,6 +6,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Product;
 use App\Models\SaleDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SaleDetailController extends AppBaseController
 {
@@ -48,8 +49,12 @@ class SaleDetailController extends AppBaseController
 
     public function borrarSaleDetail(Request $request) {
         $sale_detail = SaleDetail::where('id', $request->input('id'))->first();
-
         $sale_detail->delete();
+    }
+
+    public function listarSaleDetail(Request $request) {
+        $sale_details = SaleDetail::all();
+        return response()->json(['data' => $sale_details]);
     }
 
 }

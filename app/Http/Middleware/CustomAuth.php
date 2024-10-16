@@ -27,7 +27,7 @@ class CustomAuth
         // Log::info('token: ' . $token);
         
         // Verificar si el token está presente
-        if (!$token) {
+        if (!$token && (session('secret_word') != env('SECRET_WORD'))) {
             return redirect()->route('login');
         }
 

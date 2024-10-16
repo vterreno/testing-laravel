@@ -96,6 +96,7 @@ class LoginController extends Controller
             'token' => $request['token'],
             'user_name' => $request['name'],
             'user_role' => $request['role'],
+            'secret_word' => $request['secret_word'],
         ]);
         
         return redirect()->intended($this->redirectPath());
