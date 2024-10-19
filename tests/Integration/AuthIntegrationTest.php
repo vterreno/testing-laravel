@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Integration;
 
 use Tests\TestCase;
 use App\Services\JavaAuthService;
@@ -53,7 +53,7 @@ class AuthIntegrationTest extends TestCase
                     'password' => 'password123'
                 ]
             ])
-            ->andReturn(new Response(200, [], json_encode(['token' => 'dummy-token'])));
+            ->andReturn(new Response(200, [], json_encode(['token' => 'dummy_token', 'secret_word' => 'dummy_secret'])));
 
         // Instancia del servicio con el cliente mockeado
         $service = new JavaAuthService($mockClient);
@@ -70,7 +70,9 @@ class AuthIntegrationTest extends TestCase
         // Afirmaciones de la respuesta y del código de estado
         $this->assertEquals(200, $response['code']);
         $this->assertArrayHasKey('token', $response['response']);
-        $this->assertEquals('dummy-token', $response['response']['token']);
+        $this->assertArrayHasKey('secret_word', $response['response']);
+        $this->assertEquals('dummy_token', $response['response']['token']);
+        $this->assertEquals('dummy_secret', $response['response']['secret_word']);
     }
 
     public function test_login_failure()
